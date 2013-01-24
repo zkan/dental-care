@@ -38,6 +38,27 @@ vector<string> Preprocessing::split(const string &str, char delimiter) {
     return elems;
 }
 
+/*
+void Preprocessing::print_min_max_for_each_column() {
+    // for each column
+    for(unsigned int j = 0; j < this->_data[0].size(); j++) {
+        float min = 10000;
+        float max = -10000;
+        cout << "Column: " << j << endl;
+        for(unsigned int i = 0; i < this->_data.size(); i++) {
+            if((float) this->_data[i][j] > max) {
+                max = (float) this->_data[i][j];
+            }
+            if((float) this->_data[i][j] < min) {
+                min = (float) this->_data[i][j];
+            }
+        }
+        cout << "Min: " << min << endl;
+        cout << "Max: " << max << endl;
+    }
+}
+*/
+
 void Preprocessing::print_training_data(bool ignore_missing_data) {
     for(unsigned int i = 0; i < this->_data.size(); i++) {
         if(ignore_missing_data) {
@@ -55,10 +76,10 @@ void Preprocessing::print_training_data(bool ignore_missing_data) {
         for(unsigned int j = 0; j < this->_data[i].size(); j++) {
             cout << this->_data[i][j]; 
             if(j != this->_data[i].size() - 1) {
-                cout << ", ";
+                cout << " ";
             }
         }
-        cout << " => " << this->_class[i] << endl;
+        cout << " " << this->_class[i] << endl;
     }
 }
 
@@ -149,17 +170,38 @@ void Preprocessing::fill_best_guess_value() {
         data_class_set.insert(this->_class[i]);
     }
 
-    // find the most frequent item for each class
+    // for each class, find the most frequent item
     for(it_set = data_class_set.begin(); 
         it_set != data_class_set.end(); 
         ++it_set) {
 
-        cout << "Class: " << *it_set << endl;
-        // fill the best guess value in for each attribute
-        for(unsigned int i = 0; i < this->_data[0].size(); i++) {
-                string most_freq_item = get_most_frequent_item(i, *it_set);
-                cout << "Most frequent item for attribute " << i << ": " 
-                     << most_freq_item << endl;
+//        cout << "Class: " << *it_set << endl;
+
+        // for each attribute, fill the best guess value in
+        for(unsigned int col_index = 0; 
+                         col_index < this->_data[0].size(); 
+                         col_index++) {
+            string most_freq_item = get_most_frequent_item(col_index, *it_set);
+//            cout << "Most frequent item for attribute " 
+//                 << col_index << ": " 
+//                 << most_freq_item << endl;
+
+            replace_missing_value_with_most_freq_item(col_index, 
+                                                      *it_set, 
+                                                      most_freq_item);
+        }
+    }
+}
+
+void Preprocessing::replace_missing_value_with_most_freq_item(int index, 
+                                                              string data_class, 
+                                                              string most_freq_item) {
+    for(unsigned int i = 0; i < this->_data.size(); i++) {
+        if(this->_class[i].compare(data_class) == 0) {
+            // find the missing value
+            if(this->_data[i][index].compare("?") == 0) {
+                this->_data[i][index] = most_freq_item;
+            }
         }
     }
 }
@@ -169,6 +211,7 @@ string Preprocessing::get_most_frequent_item(int index, string data_class) {
     map<string, int>::iterator it;
     for(unsigned int i = 0; i < this->_data.size(); i++) {
         if(this->_class[i].compare(data_class) == 0) {
+            // skip the missing value
             if(this->_data[i][index].compare("?") != 0) {
                 it = data_freq_map.find(this->_data[i][index]);
                 if(it == data_freq_map.end()) {
@@ -194,5 +237,15 @@ string Preprocessing::get_most_frequent_item(int index, string data_class) {
 
     return most_freq_item;
 }
+
+/*
+void Preprocessing::write_preprocessed_training_data() {
+    for(unsigned int i = 0; i < this->_data.size(); i++) {
+    }
+}
+*/
+
+
+
 
 

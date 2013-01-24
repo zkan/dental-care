@@ -34,6 +34,9 @@ class Preprocessing {
         vector<string> split(const string &str, char delimiter);
         
         string get_most_frequent_item(int index, string data_class);
+        void replace_missing_value_with_most_freq_item(int index, 
+                                                       string data_class, 
+                                                       string most_freq_item);
 
     public:
         Preprocessing();
@@ -48,6 +51,9 @@ class Preprocessing {
         vector<double> get_std_vector();
 
         void fill_best_guess_value();
+
+//        void print_min_max_for_each_column();
+//        void write_preprocessed_training_data();
         
 //        void normalize();
 };
