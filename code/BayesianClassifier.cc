@@ -80,16 +80,21 @@ void BayesianClassifier::calculateProbabilitiesOfInputs() {
 }
 
 /**
- * Calculate the probability of P(effectColum:effectValue | lastColumn:causeValue)
+ * Calculate the probability of P(effectColumn:effectValue | lastColumn:causeValue)
  * It saves data into the variable probabilitiesOfInputs.
  */
 void BayesianClassifier::calculateProbability(int effectColumn,
 		int effectValue, int causeValue) {
-	
+
 	// The numerator is the number of TrainingData with this effectValue given this causeValue
 	float numerator = 0.0;
 	// The denominator is the number of TrainingData with this causeValue
 	float denominator = 0.0;
+
+    // Use Laplacian smoothing with k = 1
+    float k = 1;
+    numerator += k;
+    denominator += k * domains[effectColumn].getNumberOfValues();
 
 	//Calculate the numerator and denominator by scanning the TrainingData
 	for (unsigned int i = 0; i < data.size(); i++) {
@@ -187,6 +192,7 @@ float BayesianClassifier::calculateProbabilityOfOutput(std::vector<float> input,
 
 			probability *= probabilitiesOfInputs[key];
 		}
+//        std::cout << "prob: " << probability << std::endl;
 		probabilities.push_back(probability);
 	}
 
