@@ -30,9 +30,6 @@ void testBayesianClassifier() {
 
     BayesianClassifier classifier("../data/input/preprocessed_training", domains);
 
-    // It is possible to not give any data and add it later
-    // BayesianClassifier classifier(domains);
-
     vector<float> input1;
 
 /*
@@ -89,50 +86,7 @@ void testBayesianClassifier() {
     cout << "The probability of the output 1.0 given the input: " 
          << classifier.calculateProbabilityOfOutput(input1, 1.0) << endl;
     cout << "The probability of the output 0.0 given the input: " 
-         << classifier.calculateProbabilityOfOutput(input1, 0.0) << endl;
-    
-/*
-	// Calculates the probability of obtaining the output 0.0 given the input (1.0, 2.0)
-	if(classifier.calculateProbabilityOfOutput(input1, 0.0) != 0.5) {
-		cout << "The probability should be 0.5" << endl;
-		errors++;
-	}
-*/
-	
-/*
-	// Updates the classifier with new values (1.0, 2.0, 0.0)
-	classifier.addRawTrainingData("data/newBayesianClassifierValues.txt");
-	
-	if(classifier.calculateProbabilityOfOutput(input1, 0.0) <= 0.727272 || classifier.calculateProbabilityOfOutput(input1, 0.0) >= 0.727274) {
-		cout << "The probability should be 0.727273" << endl;
-		errors++;
-	}
-	
-	// The most probable output should be 0.0 given the input (1.0, 2.0)
-	if (classifier.calculateOutput(input1) != 0.0) {
-		cout << "The output should be 0.0" << endl;
-		errors++;
-	}
-*/
-
-/*
-	vector<float> newRawTrainingData;
-	
-	newRawTrainingData.push_back(1.0);
-	newRawTrainingData.push_back(2.0);
-	newRawTrainingData.push_back(1.0);
-	
-	classifier.addRawTrainingData(newRawTrainingData);
-
-	if(classifier.calculateProbabilityOfOutput(input1, 0.0) <= 0.49 || classifier.calculateProbabilityOfOutput(input1, 0.0) >= 0.51) {
-		cout << "The probability should be 0.5" << endl;
-		errors++;
-	}
-	
-	if (errors == 0) {
-		cout << "TestBayesianClassifier passed" << endl;
-	}
-*/
+         << classifier.calculateProbabilityOfOutput(input1, 0.0) << endl;    
 }
 
 int main(int argc, char *argv[]) {
