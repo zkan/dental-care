@@ -32,9 +32,16 @@ int main(int argc, char *argv[]) {
     ifstream inputFile(argv[2]);
 
     vector<float> input;
+    float class_label = -1;
+    int numberOfTestingInputs = 0;
+        
+    int TP = 0;
+    int FP = 0;
+    int TN = 0;
+    int FN = 0;
+    
     vector<string> tokens;
     string line;
-    float class_label = -1;
 	while(!inputFile.eof()) {
         getline(inputFile, line);
         if(line.empty()) {
@@ -53,37 +60,50 @@ int main(int argc, char *argv[]) {
             cout << input[i] << " ";
         }
         cout << "Class label: " << class_label << endl;
+    
+
+        float prob_class_yes = classifier.calculateProbabilityOfOutput(input, 1.0);
+        float prob_class_no = classifier.calculateProbabilityOfOutput(input, 0.0);
+    
+        cout << "The probability of the output 1.0 given the input: " 
+             << prob_class_yes << endl;
+        cout << "The probability of the output 0.0 given the input: " 
+             << prob_class_no << endl << endl; 
+
+        if(prob_class_yes >= prob_class_no) {
+            if(class_label == 1.0) {
+                TP++;
+            }
+            else {
+                FP++;
+            }
+        }
+        else {
+            if(class_label == 1.0) {
+                FN++;
+            }
+            else {
+                TN++;
+            }
+        }
 
         // Reset the variables.
         input.clear();
         class_label = -1;
+
+        numberOfTestingInputs++;
 	}
 	inputFile.close();
 
-    exit(1);
+    float precision = (float) TP / (float) (TP + FP);
+    float recall = (float) TP / (float) (TP + FN);
+    float accuracy = (float) (TP + TN) / (float) (numberOfTestingInputs);
 
-
-
-    // class: yes
-    input.push_back(0.0);
-    input.push_back(3.0);
-    input.push_back(0.0);
-    input.push_back(5.0);
-    input.push_back(0.0);
-    input.push_back(0.0);
-    input.push_back(0.0);
-    input.push_back(1.0);
-    input.push_back(2.5);
-    input.push_back(3.5);
-    input.push_back(0.0);
-    input.push_back(0.0);
-    input.push_back(2.0);
-
-    cout << "The probability of the output 1.0 given the input: " 
-         << classifier.calculateProbabilityOfOutput(input, 1.0) << endl;
-    cout << "The probability of the output 0.0 given the input: " 
-         << classifier.calculateProbabilityOfOutput(input, 0.0) << endl;    
+    cout << "Precision: " << precision << endl;
+    cout << "Recall: " << recall << endl;
+    cout << "Accuracy: " << accuracy << endl;
 
     return 1;
 }
+
 

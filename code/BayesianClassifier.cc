@@ -80,7 +80,7 @@ void BayesianClassifier::constructClassifier(std::string filename) {
 	calculateProbabilitiesOfInputs();
 	calculateProbabilitiesOfOutputs();
 	numberOfTrainingData = data.size();
-    std::cout << "Number of training data: " << numberOfTrainingData << std::endl;
+//    std::cout << "Number of training data: " << numberOfTrainingData << std::endl;
 	data.clear();
 }
 
