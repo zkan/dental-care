@@ -5,6 +5,7 @@
  *      Author: Simon Lavigne-Giroux
  */
 
+#include "utils.h"
 #include "BayesianClassifier.h"
 #include <fstream>
 
@@ -47,14 +48,30 @@ BayesianClassifier::BayesianClassifier(std::vector<Domain> _domains) {
 void BayesianClassifier::constructClassifier(std::string filename) {
 	std::ifstream inputFile(filename.c_str());
 
+    vector<string> tokens;
+    string line;
 	while (!inputFile.eof()) {
 		TrainingData trainingData;
+
+        getline(inputFile, line);
+        if(line.empty()) {
+            continue;
+        }
+
+        tokens = split(line, ' ');
+
+        for(unsigned int i = 0; i < tokens.size(); i++) {
+            float value = string_to_float(tokens[i]);
+			trainingData.push_back(domains[i].calculateDiscreteValue(value));
+        }
+
+/*        
 		float value;
 		for (int i = 0; i < numberOfColumns; i++) {
 			inputFile >> value;
 			trainingData.push_back(domains[i].calculateDiscreteValue(value));
 		}
-
+*/
 		data.push_back(trainingData);
 	}
 
@@ -63,6 +80,7 @@ void BayesianClassifier::constructClassifier(std::string filename) {
 	calculateProbabilitiesOfInputs();
 	calculateProbabilitiesOfOutputs();
 	numberOfTrainingData = data.size();
+    std::cout << "Number of training data: " << numberOfTrainingData << std::endl;
 	data.clear();
 }
 
@@ -309,3 +327,9 @@ Domain BayesianClassifier::getOuputDomain() {
 	return domains[numberOfColumns - 1];
 }
 
+/**
+ * Returns the number of columns in the training data.
+ */
+int BayesianClassifier::getNumberOfColumns() {
+    return numberOfColumns;
+}

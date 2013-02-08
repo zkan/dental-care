@@ -15,6 +15,8 @@
 #include <map>
 #include <iostream>
 
+using namespace std;
+
 /**
  * TrainingData contains discretized values.
  */
@@ -174,6 +176,11 @@ public:
 	 * It updates the variables containing the probabilities.
 	 */
 	void addRawTrainingData(RawTrainingData rawTrainingData);
+
+    /**
+     * Returns the number of columns in the training data.
+     */
+    int getNumberOfColumns();
 };
 
 #endif /* BAYESIANCLASSIFIER_H_ */
