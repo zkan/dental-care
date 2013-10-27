@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
     domains.push_back(Domain(0.0, 1.0, 2)); // {0, 1}
     domains.push_back(Domain(0.0, 1.0, 2)); // {0, 1}
     domains.push_back(Domain(0.0, 2.0, 3)); // {0, 1, 2}
+    domains.push_back(Domain(-5.0, 8.0, 15)); // [-5, 8]
+    domains.push_back(Domain(-5.0, 8.0, 15)); // [-5, 8]
     // The ouput domain
     domains.push_back(Domain(0.0, 1.0, 2)); // {0, 1}
 
