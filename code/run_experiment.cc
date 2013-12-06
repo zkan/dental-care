@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
     
     vector<string> tokens;
     string line;
+    int count = 0;
 	while(!inputFile.eof()) {
         getline(inputFile, line);
         if(line.empty()) {
@@ -57,20 +58,22 @@ int main(int argc, char *argv[]) {
 		}
         class_label = string_to_float(tokens[tokens.size() - 1]);
 
-        cout << "Input: ";
-        for(unsigned int i = 0; i < input.size(); i++) {
-            cout << input[i] << " ";
-        }
-        cout << "Class label: " << class_label << endl;
+        //cout << "Input: ";
+        //for(unsigned int i = 0; i < input.size(); i++) {
+        //    cout << input[i] << " ";
+        //}
+        //cout << "Class label: " << class_label << endl;
     
 
         float prob_class_yes = classifier.calculateProbabilityOfOutput(input, 1.0);
         float prob_class_no = classifier.calculateProbabilityOfOutput(input, 0.0);
     
-        cout << "The probability of the output 1.0 given the input: " 
-             << prob_class_yes << endl;
-        cout << "The probability of the output 0.0 given the input: " 
-             << prob_class_no << endl << endl; 
+        //cout << "The probability of the output 1.0 given the input: " 
+        //     << prob_class_yes << endl;
+        //cout << "The probability of the output 0.0 given the input: " 
+        //     << prob_class_no << endl << endl; 
+        cout << prob_class_yes << "\t" << count << endl;
+        count++;
 
         if(prob_class_yes >= prob_class_no) {
             if(class_label == 1.0) {
