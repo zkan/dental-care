@@ -3,7 +3,7 @@
 # 
 CFLAGS = -g -Wall
 CC = g++ $(CFLAGS)
-PROG = prog run_experiment
+PROG = prog run_experiment compute_roc
 all: $(PROG)
 
 preprocessing.o: preprocessing.cc preprocessing.h
@@ -29,6 +29,9 @@ run_experiment.o: run_experiment.cc utils.h Domain.h BayesianClassifier.h
 
 run_experiment: run_experiment.o utils.o Domain.o BayesianClassifier.o
 	$(CC) run_experiment.o utils.o Domain.o BayesianClassifier.o -o run_experiment
+
+compute_roc: compute_roc.o utils.o Domain.o BayesianClassifier.o
+	$(CC) compute_roc.o utils.o Domain.o BayesianClassifier.o -o compute_roc
 
 clean:
 	rm *.o $(PROG)
