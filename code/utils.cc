@@ -13,6 +13,17 @@ float string_to_float(string str) {
     return val;
 }
 
+float string_to_int(string str) {
+    istringstream i(str);
+    int val;
+    
+    if(!(i >> val)) {
+        return 0;
+    }
+
+    return val;
+}
+
 // beautiful split function by 
 // credit: http://stackoverflow.com/a/236803/511707
 vector<string> &split(const string &str, 

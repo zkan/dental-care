@@ -13,6 +13,7 @@
 using namespace std;
 
 float string_to_float(string str);
+float string_to_int(string str);
        
 // beautiful split function
 // credit: http://stackoverflow.com/a/236803/511707
