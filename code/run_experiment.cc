@@ -68,11 +68,11 @@ int main(int argc, char *argv[]) {
         float prob_class_yes = classifier.calculateProbabilityOfOutput(input, 1.0);
         float prob_class_no = classifier.calculateProbabilityOfOutput(input, 0.0);
     
-        //cout << "The probability of the output 1.0 given the input: " 
-        //     << prob_class_yes << endl;
-        //cout << "The probability of the output 0.0 given the input: " 
-        //     << prob_class_no << endl << endl; 
-        cout << prob_class_yes << "\t" << count << endl;
+        cout << "The probability of the output 1.0 given the input: " 
+             << prob_class_yes << endl;
+        cout << "The probability of the output 0.0 given the input: " 
+             << prob_class_no << endl << endl; 
+        //cout << prob_class_yes << "\t" << count << endl;
         count++;
 
         if(prob_class_yes >= prob_class_no) {
@@ -109,7 +109,6 @@ int main(int argc, char *argv[]) {
     cout << "Accuracy: " << accuracy << endl;
     
     map<unsigned long, float> probabilitiesOfInputs = classifier.getProbabilitiesOfInputs();
-    
     typedef map<unsigned long, float>::iterator it_type;
     for(it_type iterator = probabilitiesOfInputs.begin(); iterator != probabilitiesOfInputs.end(); iterator++) {
         cout << iterator->first << ": " << iterator->second << endl;

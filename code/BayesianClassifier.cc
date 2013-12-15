@@ -339,5 +339,5 @@ std::map<unsigned long, float> BayesianClassifier::getProbabilitiesOfInputs() {
 }
 
 std::vector<float> BayesianClassifier::getProbabilitiesOfOutputs() {
-    return probabilitiesOfInputs;
+    return probabilitiesOfOutputs;
 }

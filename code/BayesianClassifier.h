@@ -130,11 +130,11 @@ private:
 	 */
 	TrainingData convertRawTrainingData(RawTrainingData floatVector);
 	
-	/**
+    /**
 	 * Returns the domain of the output column.
 	 */
 	Domain getOuputDomain();
-
+	
 public:
 	/**
 	 * BayesianClassifier constructor. It constructs the classifier with raw training data from the file
