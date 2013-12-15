@@ -333,3 +333,11 @@ Domain BayesianClassifier::getOuputDomain() {
 int BayesianClassifier::getNumberOfColumns() {
     return numberOfColumns;
 }
+
+std::map<unsigned long, float> BayesianClassifier::getProbabilitiesOfInputs() {
+    return probabilitiesOfInputs;
+}
+
+std::vector<float> BayesianClassifier::getProbabilitiesOfOutputs() {
+    return probabilitiesOfInputs;
+}

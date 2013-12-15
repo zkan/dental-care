@@ -7,8 +7,6 @@
 using namespace std;
 
 void testBayesianClassifier() {
-    int errors = 0;
-
     vector<Domain> domains;
 
     // The input domains
@@ -25,6 +23,8 @@ void testBayesianClassifier() {
     domains.push_back(Domain(0.0, 1.0, 2)); // {0, 1}
     domains.push_back(Domain(0.0, 1.0, 2)); // {0, 1}
     domains.push_back(Domain(0.0, 2.0, 3)); // {0, 1, 2}
+    domains.push_back(Domain(-5.0, 8.0, 15)); // [-5, 8]
+    domains.push_back(Domain(-5.0, 8.0, 15)); // [-5, 8]
     // The ouput domain
     domains.push_back(Domain(0.0, 1.0, 2)); // {0, 1}
 
@@ -86,7 +86,10 @@ void testBayesianClassifier() {
     cout << "The probability of the output 1.0 given the input: " 
          << classifier.calculateProbabilityOfOutput(input1, 1.0) << endl;
     cout << "The probability of the output 0.0 given the input: " 
-         << classifier.calculateProbabilityOfOutput(input1, 0.0) << endl;    
+         << classifier.calculateProbabilityOfOutput(input1, 0.0) << endl;
+
+    //map<unsigned long, float> probabilitiesOfInputs = classifier.getProbabilitiesOfInputs();
+    //vector<float> probabilitiesOfOutputs = classifier.getProbabilitiesOfOutputs();
 }
 
 int main(int argc, char *argv[]) {

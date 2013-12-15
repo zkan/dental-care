@@ -107,6 +107,19 @@ int main(int argc, char *argv[]) {
     cout << "Precision: " << precision << endl;
     cout << "Recall: " << recall << endl;
     cout << "Accuracy: " << accuracy << endl;
+    
+    map<unsigned long, float> probabilitiesOfInputs = classifier.getProbabilitiesOfInputs();
+    
+    typedef map<unsigned long, float>::iterator it_type;
+    for(it_type iterator = probabilitiesOfInputs.begin(); iterator != probabilitiesOfInputs.end(); iterator++) {
+        cout << iterator->first << ": " << iterator->second << endl;
+    }
+    
+    cout << endl << "Probabilities of Outputs:" << endl;
+    vector<float> probabilitiesOfOutputs = classifier.getProbabilitiesOfOutputs();
+    for(unsigned int i = 0; i < probabilitiesOfOutputs.size(); i++) {
+        cout << i << ": " << probabilitiesOfOutputs[i] << endl;
+    }
 
     return 1;
 }

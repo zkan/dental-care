@@ -181,6 +181,10 @@ public:
      * Returns the number of columns in the training data.
      */
     int getNumberOfColumns();
+
+    std::map<unsigned long, float> getProbabilitiesOfInputs();
+
+    std::vector<float> getProbabilitiesOfOutputs();
 };
 
 #endif /* BAYESIANCLASSIFIER_H_ */
